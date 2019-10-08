@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <Header />
+    <Header 
+    :numCorrect = "numCorrect"
+    :numTotal = "numTotal"
+    />
 
     <b-container class="bv-example-row mt-4">
       <b-row>
@@ -9,6 +12,7 @@
           v-if ="questions.length"
           :currentQuestion="questions[index]"
           :nextQuestion="nextQuestion"
+          :increment ="increment"
           />
         </b-col>
       </b-row>
@@ -31,11 +35,22 @@ export default {
     return {
       questions: [],
       index: 0,
+      numCorrect: 0,
+      numTotal: 0,
     }
   },
   methods: {
     nextQuestion() {
       this.index++
+    },
+    increment(correctAnswer) {
+      if (correctAnswer) {
+        this.numCorrect++
+        console.log("it is correct")
+      }
+      this.numTotal++
+        console.log(this.numTotal)
+
     }
   },
   mounted(){
